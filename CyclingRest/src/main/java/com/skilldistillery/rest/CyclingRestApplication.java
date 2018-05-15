@@ -2,9 +2,16 @@ package com.skilldistillery.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class CyclingRestApplication {
+public class CyclingRestApplication extends SpringBootServletInitializer {
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(CyclingRestApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CyclingRestApplication.class, args);
