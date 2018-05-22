@@ -47,6 +47,7 @@ public class CyclingServiceImpl implements CyclingService {
 	@Override
 	public Cycling update(Cycling cycling, int id) {
 		Cycling managedCycle = repo.findById(id).get();
+		System.out.println("Made It Here");
 		try {
 			if (cycling.getDate() != null) {
 				managedCycle.setDate(cycling.getDate());
@@ -57,10 +58,12 @@ public class CyclingServiceImpl implements CyclingService {
 			if (cycling.getTime() != 0) {
 				managedCycle.setTime(cycling.getTime());
 			}
-			return managedCycle;
+
 		} catch (Exception e) {
 			return cycling;
 		}
+		repo.save(managedCycle);
+		return managedCycle;
 	}
 
 	@Override

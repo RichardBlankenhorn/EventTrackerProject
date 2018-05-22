@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skilldistillery.rest.entities.Cycling;
 import com.skilldistillery.rest.services.CyclingService;
 
@@ -18,6 +21,11 @@ public class CyclingController {
 	
 	@Autowired
 	private CyclingService service;
+	
+	@RequestMapping(path = "/")
+	public String home() {
+		return "index.html";
+	}
 	
 	@RequestMapping(path = "rides", method = RequestMethod.GET)
 	public List<Cycling> index() {
