@@ -5,7 +5,7 @@ window.addEventListener('load', function(e) {
 });
 
 function init() {
-	//document.cycleForm.submit.addEventListener('click', function(event) {
+	
 	var sub = document.getElementById('submitButton');
 	sub.addEventListener('click', function(event) {
 		event.preventDefault();
@@ -230,6 +230,7 @@ function displayEvents(data) {
 	}
 
 	eventDiv.appendChild(table);
+	displayTotals(data);
 	
 	var rows = document.getElementsByTagName('tr');
 	
@@ -254,10 +255,66 @@ function displayEvents(data) {
 	
 }
 
+function displayTotals(objects) {
+	console.log(objects[0]);
+	
+	var totalsDiv = document.getElementById('totals');
+	totalsDiv.innerHTML = '';
+	
+	var table = document.createElement('table');
+	table.align = 'center';
+	var headTr = document.createElement('tr');
+	
+	var headThTime = document.createElement('th');
+	headThTime.style = "padding-right: 10px";
+	var headThDistance= document.createElement('th');
+	headThDistance.style = "padding-right: 10px";
+	var headThAvgDistance = document.createElement('th');
+	
+	headThTime.textContent = "Total Time";
+	headThDistance.textContent = "Total Distance";
+	headThAvgDistance.textContent = "Avg Distance";
+	
+	headTr.appendChild(headThTime);
+	headTr.appendChild(headThDistance);
+	headTr.appendChild(headThAvgDistance);
+	
+	table.appendChild(headTr);
+	
+	var timeTot = 0;
+	var distanceTot = 0;
+	
+	for (var i = 0; i < objects.length; i++) {
+		timeTot += parseInt(objects[i].time);
+		distanceTot += parseInt(objects[i].distance);
+	}
+	var avgDistance = distanceTot/objects.length;
+	
+	var dataTr = document.createElement('tr');
+	var timeData = document.createElement('td');
+	var distanceData = document.createElement('td');
+	var avgDistanceData = document.createElement('td');
+	
+	timeData.textContent = timeTot;
+	distanceData.textContent = distanceTot;
+	avgDistanceData.textContent = avgDistance;
+	
+	dataTr.appendChild(timeData);
+	dataTr.appendChild(distanceData);
+	dataTr.appendChild(avgDistanceData);
+	
+	table.appendChild(dataTr);
+	
+	totalsDiv.appendChild(table);
+
+}
+
 function individualView(singleObj) {
 	
 	var eventDiv = document.getElementById('eventDiv');
 	eventDiv.innerHTML = '';
+	var totalDiv = document.getElementById('totals');
+	totalDiv.innerHTML = '';
 	
 	// Hide Submit Button
 	var submitButton = document.getElementById('submitButton');
@@ -273,7 +330,7 @@ function individualView(singleObj) {
 	var time = document.getElementById('timeInput');
 	var date = document.getElementById('dateInput');
 	var distance = document.getElementById('distanceInput');
-	//console.log(singleObj);
+	
 	id.value = singleObj.id;
 	time.value = singleObj.time;
 	date.value = singleObj.date;
